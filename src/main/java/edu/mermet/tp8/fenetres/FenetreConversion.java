@@ -43,7 +43,7 @@ public class FenetreConversion extends AbstractFenetreInterne {
         champCelsius = new JTextField(15);
         champCelsius.setToolTipText("Valeur en degrÃ© Celsius");
         labCelsius.setLabelFor(champCelsius);
-        ImageIcon interrogation=new ImageIcon("ressources/interrogation.png");
+        ImageIcon interrogation=new ImageIcon("ressources/interrogation.gif");
         JLabel labAideC=new JLabel(interrogation);
         labAideC.addMouseListener(new MouseAdapter() {
         	@Override
