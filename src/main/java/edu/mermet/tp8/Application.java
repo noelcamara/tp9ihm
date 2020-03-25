@@ -1,11 +1,23 @@
 package edu.mermet.tp8;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -13,6 +25,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
@@ -27,6 +42,7 @@ import edu.mermet.tp8.fenetres.FentreCmntFaire;
  * @author
  */
 public class Application extends JFrame {
+
 	private JInternalFrame conversion;
 	private JInternalFrame texte;
 	private JInternalFrame diaporama;
@@ -107,6 +123,7 @@ public class Application extends JFrame {
 		setSize(600, 300);
 		this.setLocationRelativeTo(null);
 		setVisible(true);
+		initSuggestion();
 	}
 
 	// ---------------------------partie une--------------------------------
@@ -227,6 +244,60 @@ public class Application extends JFrame {
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(Application::new);
+	}
+
+	private void initSuggestion() {
+		JDialog suggestion = new JDialog(this);
+		suggestion.setLayout(new BorderLayout());
+		JTextArea areaSuggestion = new JTextArea(5, 60);
+		areaSuggestion.setEditable(false);
+		JScrollPane scroll = new JScrollPane(areaSuggestion);
+		areaSuggestion.append(getRandomSuggestion());
+		JPanel panelButton = new JPanel();
+		panelButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		JButton fermer = new JButton("Fermer");
+		fermer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				suggestion.dispose();
+			}
+		});
+		panelButton.add(fermer);
+		JButton NePlusAfficher = new JButton("Ne plus afficher");
+		NePlusAfficher.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				suggestion.dispose();
+			}
+		});
+		panelButton.add(NePlusAfficher);
+		suggestion.add(panelButton, BorderLayout.SOUTH);
+		suggestion.add(scroll, BorderLayout.CENTER);
+		suggestion.setSize(500, 150);
+		suggestion.setLocationRelativeTo(null);
+		suggestion.setUndecorated(true);
+		suggestion.getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray));
+		suggestion.setVisible(true);
+	}
+
+	private static String getRandomSuggestion() {
+		try {
+			List<String> listeSuggestion = new ArrayList<String>();
+			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
+			String ligne;
+			while ((ligne = reader.readLine()) != null) {
+				listeSuggestion.add(ligne);
+			}
+			Random rand = new Random();
+			int nombreAleatoire = rand.nextInt(listeSuggestion.size());
+			System.out.println(nombreAleatoire);
+			return listeSuggestion.get(nombreAleatoire);
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
 	}
 
 }
