@@ -43,13 +43,13 @@ public class FenetreConversion extends AbstractFenetreInterne {
         champCelsius = new JTextField(15);
         champCelsius.setToolTipText("Valeur en degrÃ© Celsius");
         labCelsius.setLabelFor(champCelsius);
-        ImageIcon interrogation=new ImageIcon("ressources/interrogation.gif");
+        ImageIcon interrogation=new ImageIcon("src/ressources/interrogation.gif");
         JLabel labAideC=new JLabel(interrogation);
         labAideC.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		super.mouseClicked(e);
-        		JOptionPane.showMessageDialog(labAideC,"Valeur en degrÃ© Celsius" , "Aide", JOptionPane.INFORMATION_MESSAGE);
+        		JOptionPane.showMessageDialog(labAideC,"Valeur en degré Celsius" , "Aide", JOptionPane.INFORMATION_MESSAGE);
         	}
 		});
         ligneCelsius.add(labCelsius);
@@ -69,7 +69,7 @@ public class FenetreConversion extends AbstractFenetreInterne {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		super.mouseClicked(e);
-        		JOptionPane.showMessageDialog(labAideF,"Valeur en degrÃ© Farenheit" , "Aide", JOptionPane.INFORMATION_MESSAGE);
+        		JOptionPane.showMessageDialog(labAideF,"Valeur en degré Farenheit" , "Aide", JOptionPane.INFORMATION_MESSAGE);
         	}
 		});
         ligneFarenheit.add(labFarenheit);
