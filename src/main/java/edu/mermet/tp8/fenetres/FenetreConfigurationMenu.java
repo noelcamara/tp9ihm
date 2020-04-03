@@ -2,6 +2,8 @@ package edu.mermet.tp8.fenetres;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.invoke.SwitchPoint;
 import java.util.Locale;
@@ -21,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import edu.mermet.tp8.Application;
 
 /**
  * 
@@ -77,14 +81,17 @@ public class FenetreConfigurationMenu extends JDialog {
 		initComponent();
 		pack();
 		setModal(true);
+		
+		validerBoutonAction();
+		annulerBoutonAction();
 	}
 
 	/**
 	 * permet d'initialiser l'ensemble des composant
 	 */
 	private void initComponent() {
-        JPanel panel = new JPanel();
         this.setLayout(new GridLayout(5,1));
+        JPanel panel = new JPanel();
         
         ligne1 = new JPanel();
         ligne2 = new JPanel();
@@ -100,6 +107,7 @@ public class FenetreConfigurationMenu extends JDialog {
 		this.add(ligne3);
 		this.add(ligne4);
 		this.add(ligne5);
+		
 	}
 
 	/**
@@ -119,6 +127,8 @@ public class FenetreConfigurationMenu extends JDialog {
     	radioAuto1 = new JRadioButton("Automatique");
     	radioAffiche1 = new JRadioButton("Affiché");
     	radioCache1 = new JRadioButton("Caché");
+    	
+    	radioAffiche1.setSelected(true);
 
     	radioAuto2 = new JRadioButton("Automatique");
     	radioAffiche2 = new JRadioButton("Affiché");
@@ -131,6 +141,7 @@ public class FenetreConfigurationMenu extends JDialog {
     	radioAuto4 = new JRadioButton("Automatique");
     	radioAffiche4 = new JRadioButton("Affiché");
     	radioCache4 = new JRadioButton("Caché");
+    	
 
     	ligne1.add(conversionLabel);
     	ligne1.add(radioAuto1);
@@ -184,8 +195,101 @@ public class FenetreConfigurationMenu extends JDialog {
 	 * creation de JEditorPane qui va contenir les aides associés à la Jlist grâce à
 	 * un ecouteur
 	 */
-	private void creationpanneau() {
+	private void radioButtonAction() {
+		this.radioAffiche1.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.afficheConversion();
+			}
+			
+		});
+		
+		this.radioCache1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.removeConversion();
+			}
+			
+		});
+		
+		this.radioAffiche2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.afficheTexte();
+			}
+			
+		});
+		
+		this.radioCache2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.removeTexte();
+			}
+			
+		});
+		
+		this.radioAffiche3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.afficheDiaporama();
+			}
+			
+		});
+		
+		this.radioCache3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.removeDiaporama();
+			}
+			
+		});
+		
+		this.radioAffiche4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.afficheBoutons();
+			}
+			
+		});
+		
+		this.radioCache4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Application.removeBoutons();
+			}
+			
+		});
+	}	
+	
+	private void validerBoutonAction() {
+		this.validerBouton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				radioButtonAction();
+				dispose();
+			}
+			
+		});
+	}
+	
+	private void annulerBoutonAction() {
+		this.annulerBouton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+			
+		});
 	}
 
 }

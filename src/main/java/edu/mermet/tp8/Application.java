@@ -56,6 +56,12 @@ public class Application extends JFrame {
 	private Action actionAfficherBoutons;
 	private Action actionCmntFaire;
 	private Action actionConfigMenu;
+	
+	private static JMenu menuApplication;
+	private static JMenuItem itemConversion;
+	private static JMenuItem itemTexte;
+	private static JMenuItem itemDiaporama;
+	private static JMenuItem itemBoutons;
 
 	public Application() {
 		super("multi-fenêtres");
@@ -81,19 +87,20 @@ public class Application extends JFrame {
 		barre.add(menuFichier);
 		this.setJMenuBar(barre);
 		// ------ menu Applications ------
-		JMenu menuApplication = new JMenu("Applications");
+		menuApplication = new JMenu("Applications");
 		menuApplication.setMnemonic(KeyEvent.VK_A);
 		actionAfficherConversion = new ActionAfficherConversion();
-		JMenuItem itemConversion = new JMenuItem(actionAfficherConversion);
+		itemConversion = new JMenuItem(actionAfficherConversion);
 		menuApplication.add(itemConversion);
+		
 		actionAfficherTexte = new ActionAfficherTexte();
-		JMenuItem itemTexte = new JMenuItem(actionAfficherTexte);
+		itemTexte = new JMenuItem(actionAfficherTexte);
 		menuApplication.add(itemTexte);
 		actionAfficherDiaporama = new ActionAfficherDiaporama();
-		JMenuItem itemDiaporama = new JMenuItem(actionAfficherDiaporama);
+		itemDiaporama = new JMenuItem(actionAfficherDiaporama);
 		menuApplication.add(itemDiaporama);
 		actionAfficherBoutons = new ActionAfficherBoutons();
-		JMenuItem itemBoutons = new JMenuItem(actionAfficherBoutons);
+		itemBoutons = new JMenuItem(actionAfficherBoutons);
 		menuApplication.add(itemBoutons);
 		barre.add(menuApplication);
 		// ******aide******
@@ -132,7 +139,7 @@ public class Application extends JFrame {
 		setVisible(true);
 		initSuggestion();
 	}
-
+	
 	// ---------------------------partie une--------------------------------
 	private class ActionComntFaire extends AbstractAction {
 
@@ -236,6 +243,50 @@ public class Application extends JFrame {
 	public void enableBoutons(boolean b) {
 		actionAfficherBoutons.setEnabled(b);
 	}
+	
+	// Pour la classe FenetreConfigurationMenu
+	
+	public static void afficheConversion() { 
+		//menuApplication.add(itemConversion);
+		itemConversion.setVisible(true);
+	}
+	
+	public static void afficheTexte() { 
+		//menuApplication.add(itemTexte);
+		itemTexte.setVisible(true);
+		
+	}
+	
+	public static void afficheDiaporama() { 
+		//menuApplication.add(itemDiaporama); 
+		itemDiaporama.setVisible(true);
+		
+	}
+	
+	public static void afficheBoutons() { 
+		//menuApplication.add(itemBoutons); 
+		itemBoutons.setVisible(true);
+		}
+	
+	public static void removeConversion() { 
+		itemConversion.setVisible(false);
+		System.out.println(itemConversion.isVisible());
+		}
+	
+	public static void removeTexte() { 
+		//menuApplication.remove(itemTexte); 
+		itemTexte.setVisible(false);
+		}
+	
+	public static void removeDiaporama() { 
+		//menuApplication.remove(itemDiaporama); 
+		itemDiaporama.setVisible(false);
+		}
+	
+	public static void removeBoutons() { 
+		itemBoutons.setVisible(false); 
+		}
+	
 
 	public Action getActionAfficherConversion() {
 		return actionAfficherConversion;
