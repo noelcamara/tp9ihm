@@ -39,9 +39,6 @@ public class FenetreConfigurationMenu extends JDialog {
 	private JLabel saisieLabel;
 	private JLabel diaporamaLabel;
 	private JLabel boutonsLabel;
-	private JLabel autoLabel;
-	private JLabel afficheLabel;
-	private JLabel cacheLabel;
 	
 	private ButtonGroup groupeConversion;
 	private ButtonGroup groupeSaisie;
@@ -122,29 +119,26 @@ public class FenetreConfigurationMenu extends JDialog {
     	groupeDiaporama = new ButtonGroup();
     	groupeBoutons = new ButtonGroup();
     	
-    	radioAuto1 = new JRadioButton();
-    	radioAffiche1 = new JRadioButton();
-    	radioCache1 = new JRadioButton();
+    	radioAuto1 = new JRadioButton("Automatique");
+    	radioAffiche1 = new JRadioButton("Affiché");
+    	radioCache1 = new JRadioButton("Caché");
 
-    	radioAuto2 = new JRadioButton();
-    	radioAffiche2 = new JRadioButton();
-    	radioCache2 = new JRadioButton();
+    	radioAuto2 = new JRadioButton("Automatique");
+    	radioAffiche2 = new JRadioButton("Affiché");
+    	radioCache2 = new JRadioButton("Caché");
 
-    	radioAuto3 = new JRadioButton();
-    	radioAffiche3 = new JRadioButton();
-    	radioCache3 = new JRadioButton();
+    	radioAuto3 = new JRadioButton("Automatique");
+    	radioAffiche3 = new JRadioButton("Affiché");
+    	radioCache3 = new JRadioButton("Caché");
 
-    	radioAuto4 = new JRadioButton();
-    	radioAffiche4 = new JRadioButton();
-    	radioCache4 = new JRadioButton();
+    	radioAuto4 = new JRadioButton("Automatique");
+    	radioAffiche4 = new JRadioButton("Affiché");
+    	radioCache4 = new JRadioButton("Caché");
 
     	ligne1.add(conversionLabel);
     	ligne1.add(radioAuto1);
-    	ligne1.add(new JLabel("Automatique"));
     	ligne1.add(radioAffiche1);
-    	ligne1.add(new JLabel("Affiché"));
     	ligne1.add(radioCache1);
-    	ligne1.add(new JLabel("Caché"));
     	
     	groupeConversion.add(radioAuto1);
     	groupeConversion.add(radioAffiche1);
@@ -152,11 +146,8 @@ public class FenetreConfigurationMenu extends JDialog {
     	
     	ligne2.add(saisieLabel);
     	ligne2.add(radioAuto2);
-    	ligne2.add(new JLabel("Automatique"));
     	ligne2.add(radioAffiche2);
-    	ligne2.add(new JLabel("Affiché"));
     	ligne2.add(radioCache2);
-    	ligne2.add(new JLabel("Caché"));
     	
     	groupeSaisie.add(radioAuto2);
     	groupeSaisie.add(radioAffiche2);
@@ -164,11 +155,8 @@ public class FenetreConfigurationMenu extends JDialog {
     	
     	ligne3.add(diaporamaLabel);
     	ligne3.add(radioAuto3);
-    	ligne3.add(new JLabel("Automatique"));
     	ligne3.add(radioAffiche3);
-    	ligne3.add(new JLabel("Affiché"));
     	ligne3.add(radioCache3);
-    	ligne3.add(new JLabel("Caché"));
     	
     	groupeDiaporama.add(radioAuto3);
     	groupeDiaporama.add(radioAffiche3);
@@ -176,11 +164,8 @@ public class FenetreConfigurationMenu extends JDialog {
     	
     	ligne4.add(boutonsLabel);
     	ligne4.add(radioAuto4);
-    	ligne4.add(new JLabel("Automatique"));
     	ligne4.add(radioAffiche4);
-    	ligne4.add(new JLabel("Affiché"));
     	ligne4.add(radioCache4);
-    	ligne4.add(new JLabel("Caché"));
     	
     	groupeBoutons.add(radioAuto4);
     	groupeBoutons.add(radioAffiche4);
