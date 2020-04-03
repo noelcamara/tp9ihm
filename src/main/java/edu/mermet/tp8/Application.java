@@ -61,7 +61,7 @@ public class Application extends JFrame {
 	public Application(Utilisateur user) {
 		super("multi-fenêtres");
 		this.setContentPane(new JDesktopPane());
-
+		
 		// ****** Barre de menu ******
 		JMenuBar barre = new JMenuBar();
 		// ------ menu Fichier ------
@@ -77,7 +77,7 @@ public class Application extends JFrame {
 		});
 		// Ajout du raccourci pour quitter la page
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
-		//Ajout de "Quitter" dans le menu
+		// Ajout de "Quitter" dans le menu
 		menuFichier.add(quitter);
 		barre.add(menuFichier);
 		this.setJMenuBar(barre);
@@ -124,7 +124,7 @@ public class Application extends JFrame {
 		this.add(boutons);
 		// ------ jdialog -------
 		comntfaire = new FentreCmntFaire(this, actionCmntFaire);
-		
+
 		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu);
 		// ****** Fin création fenêtres ******
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -251,8 +251,10 @@ public class Application extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
-		SwingUtilities.invokeLater(()-> {new Application(user);});
+		Utilisateur user = new Utilisateur(System.getProperty("user.name"));
+		SwingUtilities.invokeLater(() -> {
+			new Application(user);
+		});
 	}
 
 	private void initSuggestion() {
