@@ -329,11 +329,15 @@ public class Application extends JFrame {
 		JButton NePlusAfficher = new JButton("Ne plus afficher");
 		NePlusAfficher.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				suggestion.dispose();
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
+                    user.setProperties("nePlusAfficher", IndexNePasAfficher);
+                    user.enregistrer();
+
+                suggestion.dispose();
+            }
+        });
 		panelButton.add(NePlusAfficher);
 		suggestion.add(panelButton, BorderLayout.SOUTH);
 		suggestion.add(scroll, BorderLayout.CENTER);
@@ -345,22 +349,35 @@ public class Application extends JFrame {
 	}
 
 	private String getRandomSuggestion() {
-		try {
-			List<String> listeSuggestion = new ArrayList<String>();
-			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
-			String ligne;
-			while ((ligne = reader.readLine()) != null) {
-				listeSuggestion.add(ligne);
-			}
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(listeSuggestion.size());
-			System.out.println(nombreAleatoire);
-			return listeSuggestion.get(nombreAleatoire);
+        try {
+            List<String> listeSuggestion = new ArrayList<String>();
+            BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                listeSuggestion.add(ligne);
+            }
+            Random rand = new Random();
+            int nombreAleatoire = rand.nextInt(listeSuggestion.size());
 
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return null;
-	}
+            if (!user.getProperties("nePlusAfficher").equals("")) {
+                  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
+                  {
+                      nombreAleatoire = rand.nextInt(listeSuggestion.size());
+                  }
+
+            }else {
+                 user.setProperties("nePlusAfficher", "");
+            }
+            this.IndexNePasAfficher=String.valueOf(nombreAleatoire);
+            System.out.println(IndexNePasAfficher);
+
+
+            return listeSuggestion.get(nombreAleatoire);
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 
 }
