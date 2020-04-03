@@ -65,12 +65,14 @@ public class Application extends JFrame {
 	private static JMenuItem itemBoutons;
 
 	private Utilisateur user;
+	private String IndexNePasAfficher;
 
 
 	public Application(Utilisateur user) {
 		super("multi-fenêtres");
+		this.user=user;
 		this.setContentPane(new JDesktopPane());
-
+		
 		// ****** Barre de menu ******
 		JMenuBar barre = new JMenuBar();
 		// ------ menu Fichier ------
@@ -86,7 +88,7 @@ public class Application extends JFrame {
 		});
 		// Ajout du raccourci pour quitter la page
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
-		//Ajout de "Quitter" dans le menu
+		// Ajout de "Quitter" dans le menu
 		menuFichier.add(quitter);
 		barre.add(menuFichier);
 		this.setJMenuBar(barre);
@@ -134,7 +136,7 @@ public class Application extends JFrame {
 		this.add(boutons);
 		// ------ jdialog -------
 		comntfaire = new FentreCmntFaire(this, actionCmntFaire);
-		
+
 		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu);
 		// ****** Fin création fenêtres ******
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -304,10 +306,16 @@ public class Application extends JFrame {
 		return actionAfficherDiaporama;
 	}
 
+<<<<<<< HEAD
+
+=======
 	public static void main(String[] args) {
-		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
-		SwingUtilities.invokeLater(()-> {new Application(user);});
+		Utilisateur user = new Utilisateur(System.getProperty("user.name"));
+		SwingUtilities.invokeLater(() -> {
+			new Application(user);
+		});
 	}
+>>>>>>> 2972282c16667742d22804d8ec5cf994acaddc44
 
 	private void initSuggestion() {
 		JDialog suggestion = new JDialog(this);
@@ -329,6 +337,19 @@ public class Application extends JFrame {
 		JButton NePlusAfficher = new JButton("Ne plus afficher");
 		NePlusAfficher.addActionListener(new ActionListener() {
 
+<<<<<<< HEAD
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+					System.out.println(IndexNePasAfficher);
+					IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
+					user.setProperties("nePlusAfficher", IndexNePasAfficher);
+					user.enregistrer();
+				
+				suggestion.dispose();
+			}
+		});
+=======
             @Override
             public void actionPerformed(ActionEvent e) {
                     IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
@@ -338,6 +359,7 @@ public class Application extends JFrame {
                 suggestion.dispose();
             }
         });
+>>>>>>> 2972282c16667742d22804d8ec5cf994acaddc44
 		panelButton.add(NePlusAfficher);
 		suggestion.add(panelButton, BorderLayout.SOUTH);
 		suggestion.add(scroll, BorderLayout.CENTER);
@@ -358,6 +380,22 @@ public class Application extends JFrame {
             }
             Random rand = new Random();
             int nombreAleatoire = rand.nextInt(listeSuggestion.size());
+<<<<<<< HEAD
+            
+            if (!user.getProperties("nePlusAfficher").equals("")) {
+            	  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
+                  {
+                      nombreAleatoire = rand.nextInt(listeSuggestion.size());
+                  }
+            	 				
+			}else {
+				 user.setProperties("nePlusAfficher", "");
+			}
+            this.IndexNePasAfficher=String.valueOf(nombreAleatoire);
+      	  System.out.println(IndexNePasAfficher);
+
+            
+=======
 
             if (!user.getProperties("nePlusAfficher").equals("")) {
                   while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
@@ -372,6 +410,7 @@ public class Application extends JFrame {
             System.out.println(IndexNePasAfficher);
 
 
+>>>>>>> 2972282c16667742d22804d8ec5cf994acaddc44
             return listeSuggestion.get(nombreAleatoire);
 
         } catch (Exception e) {
@@ -379,5 +418,13 @@ public class Application extends JFrame {
         }
         return null;
     }
+<<<<<<< HEAD
+	
+	public static void main(String[] args) {
+		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
+		SwingUtilities.invokeLater(()-> {new Application(user);});
+	}
+=======
+>>>>>>> 2972282c16667742d22804d8ec5cf994acaddc44
 
 }
