@@ -39,7 +39,7 @@ public class Competence {
 	 */
 	public void AjoutComQuitter() {
 		if (competence <= 4) {
-			competence = +0.1;
+			competence = competence+0.1;
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Competence {
 	 */
 	public void AjoutComDiap() {
 		if (competence >= 2 && competence <= 8) {
-			competence = +0.2;
+			competence = competence+0.2;
 		}
 	}
 
@@ -59,7 +59,7 @@ public class Competence {
 	 */
 	public void AjoutComConvEtSaisi() {
 		if (competence >= 4 && competence <= 16) {
-			competence = +0.4;
+			competence = competence+0.4;
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Competence {
 	 */
 	public void AjoutComBouton() {
 		if (competence >= 8 && competence <= 16) {
-			competence = +0.8;
+			competence = competence+0.8;
 		}
 	}
 

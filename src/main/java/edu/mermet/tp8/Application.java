@@ -57,7 +57,6 @@ public class Application extends JFrame {
 	private Action actionCmntFaire;
 	private Action actionConfigMenu;
 
-	
 	private static JMenu menuApplication;
 	private static JMenuItem itemConversion;
 	private static JMenuItem itemTexte;
@@ -66,13 +65,13 @@ public class Application extends JFrame {
 
 	private Utilisateur user;
 	private String IndexNePasAfficher;
-
+	private Competence comp;
 
 	public Application(Utilisateur user) {
 		super("multi-fenêtres");
-		this.user=user;
+		this.user = user;
 		this.setContentPane(new JDesktopPane());
-		
+		creationCompetence();
 		// ****** Barre de menu ******
 		JMenuBar barre = new JMenuBar();
 		// ------ menu Fichier ------
@@ -83,6 +82,8 @@ public class Application extends JFrame {
 		quitter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent aev) {
+				comp.AjoutComQuitter();
+				miseAjourComp(comp.getCompetence());
 				System.exit(0);
 			}
 		});
@@ -98,7 +99,7 @@ public class Application extends JFrame {
 		actionAfficherConversion = new ActionAfficherConversion();
 		itemConversion = new JMenuItem(actionAfficherConversion);
 		menuApplication.add(itemConversion);
-		
+
 		actionAfficherTexte = new ActionAfficherTexte();
 		itemTexte = new JMenuItem(actionAfficherTexte);
 		menuApplication.add(itemTexte);
@@ -145,7 +146,36 @@ public class Application extends JFrame {
 		setVisible(true);
 		initSuggestion();
 	}
-	
+
+	/**
+	 * Permet de creer l'Objet Competence
+	 */
+	private void creationCompetence() {
+		String niveau;
+		if (user.getProperties("Niveau") == "") {
+			user.setProperties("Niveau", "1.0");
+			comp = new Competence();
+			System.out.println(user.getProperties("Niveau"));
+		} else {
+			niveau = user.getProperties("Niveau");
+			comp = new Competence(Double.parseDouble(niveau));
+
+		}
+
+	}
+
+	/**
+	 * permet de faire une mise a jour de la competence
+	 * 
+	 * @param n
+	 */
+	private void miseAjourComp(Double n) {
+		String valeur = n.toString();
+		user.setProperties("Niveau", valeur);
+		user.enregistrer();
+		System.out.println(user.getProperties("Niveau") + " la mise a jour");
+	}
+
 	// ---------------------------partie une--------------------------------
 	private class ActionComntFaire extends AbstractAction {
 
@@ -187,8 +217,12 @@ public class Application extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
+
 			boutons.setVisible(true);
 			enableBoutons(false);
+
+			comp.AjoutComBouton();
+			miseAjourComp(comp.getCompetence());
 		}
 	}
 
@@ -201,8 +235,12 @@ public class Application extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
+
 			diaporama.setVisible(true);
 			enableDiaporama(false);
+
+			comp.AjoutComDiap();
+			miseAjourComp(comp.getCompetence());
 		}
 	}
 
@@ -215,8 +253,12 @@ public class Application extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
+
 			texte.setVisible(true);
 			enableTexte(false);
+
+			comp.AjoutComConvEtSaisi();
+			miseAjourComp(comp.getCompetence());
 		}
 	}
 
@@ -225,12 +267,17 @@ public class Application extends JFrame {
 			super("Conversion Celsius/Farenheit");
 			putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
 			putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
+
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
+
 			conversion.setVisible(true);
 			enableConversion(false);
+
+			comp.AjoutComConvEtSaisi();
+			miseAjourComp(comp.getCompetence());
 		}
 	}
 
@@ -249,50 +296,49 @@ public class Application extends JFrame {
 	public void enableBoutons(boolean b) {
 		actionAfficherBoutons.setEnabled(b);
 	}
-	
+
 	// Pour la classe FenetreConfigurationMenu
-	
-	public static void afficheConversion() { 
-		//menuApplication.add(itemConversion);
+
+	public static void afficheConversion() {
+		// menuApplication.add(itemConversion);
 		itemConversion.setVisible(true);
 	}
-	
-	public static void afficheTexte() { 
-		//menuApplication.add(itemTexte);
+
+	public static void afficheTexte() {
+		// menuApplication.add(itemTexte);
 		itemTexte.setVisible(true);
-		
+
 	}
-	
-	public static void afficheDiaporama() { 
-		//menuApplication.add(itemDiaporama); 
+
+	public static void afficheDiaporama() {
+		// menuApplication.add(itemDiaporama);
 		itemDiaporama.setVisible(true);
-		
+
 	}
-	
-	public static void afficheBoutons() { 
-		//menuApplication.add(itemBoutons); 
+
+	public static void afficheBoutons() {
+		// menuApplication.add(itemBoutons);
 		itemBoutons.setVisible(true);
-		}
-	
-	public static void removeConversion() { 
+	}
+
+	public static void removeConversion() {
 		itemConversion.setVisible(false);
-		System.out.println(itemConversion.isVisible());
-		}
-	
-	public static void removeTexte() { 
-		//menuApplication.remove(itemTexte); 
+
+	}
+
+	public static void removeTexte() {
+		// menuApplication.remove(itemTexte);
 		itemTexte.setVisible(false);
-		}
-	
-	public static void removeDiaporama() { 
-		//menuApplication.remove(itemDiaporama); 
+	}
+
+	public static void removeDiaporama() {
+		// menuApplication.remove(itemDiaporama);
 		itemDiaporama.setVisible(false);
-		}
-	
-	public static void removeBoutons() { 
-		itemBoutons.setVisible(false); 
-		}
-	
+	}
+
+	public static void removeBoutons() {
+		itemBoutons.setVisible(false);
+	}
 
 	public Action getActionAfficherConversion() {
 		return actionAfficherConversion;
@@ -305,8 +351,6 @@ public class Application extends JFrame {
 	public Action getActionAfficherDiaporama() {
 		return actionAfficherDiaporama;
 	}
-
-
 
 	private void initSuggestion() {
 		JDialog suggestion = new JDialog(this);
@@ -330,16 +374,14 @@ public class Application extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
-					System.out.println(IndexNePasAfficher);
-					IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
-					user.setProperties("nePlusAfficher", IndexNePasAfficher);
-					user.enregistrer();
-				
+
+				IndexNePasAfficher = user.getProperties("nePlusAfficher") + " " + IndexNePasAfficher;
+				user.setProperties("nePlusAfficher", IndexNePasAfficher);
+				user.enregistrer();
+
 				suggestion.dispose();
 			}
 		});
-
 
 		panelButton.add(NePlusAfficher);
 		suggestion.add(panelButton, BorderLayout.SOUTH);
@@ -352,42 +394,39 @@ public class Application extends JFrame {
 	}
 
 	private String getRandomSuggestion() {
-        try {
-            List<String> listeSuggestion = new ArrayList<String>();
-            BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
-            String ligne;
-            while ((ligne = reader.readLine()) != null) {
-                listeSuggestion.add(ligne);
-            }
-            Random rand = new Random();
-            int nombreAleatoire = rand.nextInt(listeSuggestion.size());
-
-            
-            if (!user.getProperties("nePlusAfficher").equals("")) {
-            	  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
-                  {
-                      nombreAleatoire = rand.nextInt(listeSuggestion.size());
-                  }
-            	 				
-			}else {
-				 user.setProperties("nePlusAfficher", "");
+		try {
+			List<String> listeSuggestion = new ArrayList<String>();
+			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
+			String ligne;
+			while ((ligne = reader.readLine()) != null) {
+				listeSuggestion.add(ligne);
 			}
-            this.IndexNePasAfficher=String.valueOf(nombreAleatoire);
-            System.out.println(IndexNePasAfficher);
+			Random rand = new Random();
+			int nombreAleatoire = rand.nextInt(listeSuggestion.size());
+			if (!user.getProperties("nePlusAfficher").equals("")) {
+				while (user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire))) {
+					nombreAleatoire = rand.nextInt(listeSuggestion.size());
+				}
 
-            return listeSuggestion.get(nombreAleatoire);
+			} else {
+				user.setProperties("nePlusAfficher", "");
+			}
+			this.IndexNePasAfficher = String.valueOf(nombreAleatoire);
 
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return null;
-    }
+			return listeSuggestion.get(nombreAleatoire);
 
-	
-	public static void main(String[] args) {
-		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
-		SwingUtilities.invokeLater(()-> {new Application(user);});
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return null;
 	}
 
+	public static void main(String[] args) {
+		Utilisateur user = new Utilisateur(System.getProperty("user.name"));
+		SwingUtilities.invokeLater(() -> {
+			new Application(user);
+		});
+
+	}
 
 }
