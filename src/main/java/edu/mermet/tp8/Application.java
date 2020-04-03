@@ -56,8 +56,9 @@ public class Application extends JFrame {
 	private Action actionAfficherBoutons;
 	private Action actionCmntFaire;
 	private Action actionConfigMenu;
+	private Utilisateur user;
 
-	public Application() {
+	public Application(Utilisateur user) {
 		super("multi-fenêtres");
 		this.setContentPane(new JDesktopPane());
 
@@ -250,7 +251,8 @@ public class Application extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(Application::new);
+		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
+		SwingUtilities.invokeLater(()-> {new Application(user);});
 	}
 
 	private void initSuggestion() {
