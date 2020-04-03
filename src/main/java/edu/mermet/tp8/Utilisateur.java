@@ -65,6 +65,10 @@ public class Utilisateur {
 	public String getProperties(String cle) {
 		String valeur = properties.getProperty(cle);
 
+		if (valeur==null) {
+			return "";
+		}
+
 		return valeur;
 	}
 
