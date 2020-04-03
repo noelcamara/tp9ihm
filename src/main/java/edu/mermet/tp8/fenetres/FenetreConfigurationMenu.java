@@ -71,11 +71,13 @@ public class FenetreConfigurationMenu extends JDialog {
 	 * permet d'initialiser l'ensemble des composants
 	 */
 	private void initComponent() {
+
 		JPanel panneau = new JPanel();
 		this.setContentPane(panneau);
 		panneau.setLayout(new BorderLayout());
 		creationPanHaut();
 		creationPanBas();
+
 	}
 
 	/**
@@ -241,6 +243,7 @@ public class FenetreConfigurationMenu extends JDialog {
 		panHaut.add(radioAuto4);
 		panHaut.add(radioAffiche4);
 		panHaut.add(radioCache4);
+
 	}
 
 	/**
@@ -254,7 +257,6 @@ public class FenetreConfigurationMenu extends JDialog {
 		panBas.add(validerBouton);
 		panBas.add(annulerBouton);
 		validerBouton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -269,7 +271,6 @@ public class FenetreConfigurationMenu extends JDialog {
 
 			}
 		});
-
 	}
 
 }

@@ -56,7 +56,16 @@ public class Application extends JFrame {
 	private Action actionAfficherBoutons;
 	private Action actionCmntFaire;
 	private Action actionConfigMenu;
+
+	
+	private static JMenu menuApplication;
+	private static JMenuItem itemConversion;
+	private static JMenuItem itemTexte;
+	private static JMenuItem itemDiaporama;
+	private static JMenuItem itemBoutons;
+
 	private Utilisateur user;
+
 
 	public Application(Utilisateur user) {
 		super("multi-fenêtres");
@@ -82,19 +91,20 @@ public class Application extends JFrame {
 		barre.add(menuFichier);
 		this.setJMenuBar(barre);
 		// ------ menu Applications ------
-		JMenu menuApplication = new JMenu("Applications");
+		menuApplication = new JMenu("Applications");
 		menuApplication.setMnemonic(KeyEvent.VK_A);
 		actionAfficherConversion = new ActionAfficherConversion();
-		JMenuItem itemConversion = new JMenuItem(actionAfficherConversion);
+		itemConversion = new JMenuItem(actionAfficherConversion);
 		menuApplication.add(itemConversion);
+		
 		actionAfficherTexte = new ActionAfficherTexte();
-		JMenuItem itemTexte = new JMenuItem(actionAfficherTexte);
+		itemTexte = new JMenuItem(actionAfficherTexte);
 		menuApplication.add(itemTexte);
 		actionAfficherDiaporama = new ActionAfficherDiaporama();
-		JMenuItem itemDiaporama = new JMenuItem(actionAfficherDiaporama);
+		itemDiaporama = new JMenuItem(actionAfficherDiaporama);
 		menuApplication.add(itemDiaporama);
 		actionAfficherBoutons = new ActionAfficherBoutons();
-		JMenuItem itemBoutons = new JMenuItem(actionAfficherBoutons);
+		itemBoutons = new JMenuItem(actionAfficherBoutons);
 		menuApplication.add(itemBoutons);
 		barre.add(menuApplication);
 		// ******aide******
@@ -133,7 +143,7 @@ public class Application extends JFrame {
 		setVisible(true);
 		initSuggestion();
 	}
-
+	
 	// ---------------------------partie une--------------------------------
 	private class ActionComntFaire extends AbstractAction {
 
@@ -237,6 +247,50 @@ public class Application extends JFrame {
 	public void enableBoutons(boolean b) {
 		actionAfficherBoutons.setEnabled(b);
 	}
+	
+	// Pour la classe FenetreConfigurationMenu
+	
+	public static void afficheConversion() { 
+		//menuApplication.add(itemConversion);
+		itemConversion.setVisible(true);
+	}
+	
+	public static void afficheTexte() { 
+		//menuApplication.add(itemTexte);
+		itemTexte.setVisible(true);
+		
+	}
+	
+	public static void afficheDiaporama() { 
+		//menuApplication.add(itemDiaporama); 
+		itemDiaporama.setVisible(true);
+		
+	}
+	
+	public static void afficheBoutons() { 
+		//menuApplication.add(itemBoutons); 
+		itemBoutons.setVisible(true);
+		}
+	
+	public static void removeConversion() { 
+		itemConversion.setVisible(false);
+		System.out.println(itemConversion.isVisible());
+		}
+	
+	public static void removeTexte() { 
+		//menuApplication.remove(itemTexte); 
+		itemTexte.setVisible(false);
+		}
+	
+	public static void removeDiaporama() { 
+		//menuApplication.remove(itemDiaporama); 
+		itemDiaporama.setVisible(false);
+		}
+	
+	public static void removeBoutons() { 
+		itemBoutons.setVisible(false); 
+		}
+	
 
 	public Action getActionAfficherConversion() {
 		return actionAfficherConversion;
@@ -277,11 +331,15 @@ public class Application extends JFrame {
 		JButton NePlusAfficher = new JButton("Ne plus afficher");
 		NePlusAfficher.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				suggestion.dispose();
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
+                    user.setProperties("nePlusAfficher", IndexNePasAfficher);
+                    user.enregistrer();
+
+                suggestion.dispose();
+            }
+        });
 		panelButton.add(NePlusAfficher);
 		suggestion.add(panelButton, BorderLayout.SOUTH);
 		suggestion.add(scroll, BorderLayout.CENTER);
@@ -293,22 +351,35 @@ public class Application extends JFrame {
 	}
 
 	private String getRandomSuggestion() {
-		try {
-			List<String> listeSuggestion = new ArrayList<String>();
-			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
-			String ligne;
-			while ((ligne = reader.readLine()) != null) {
-				listeSuggestion.add(ligne);
-			}
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(listeSuggestion.size());
-			System.out.println(nombreAleatoire);
-			return listeSuggestion.get(nombreAleatoire);
+        try {
+            List<String> listeSuggestion = new ArrayList<String>();
+            BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                listeSuggestion.add(ligne);
+            }
+            Random rand = new Random();
+            int nombreAleatoire = rand.nextInt(listeSuggestion.size());
 
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return null;
-	}
+            if (!user.getProperties("nePlusAfficher").equals("")) {
+                  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
+                  {
+                      nombreAleatoire = rand.nextInt(listeSuggestion.size());
+                  }
+
+            }else {
+                 user.setProperties("nePlusAfficher", "");
+            }
+            this.IndexNePasAfficher=String.valueOf(nombreAleatoire);
+            System.out.println(IndexNePasAfficher);
+
+
+            return listeSuggestion.get(nombreAleatoire);
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
 
 }
