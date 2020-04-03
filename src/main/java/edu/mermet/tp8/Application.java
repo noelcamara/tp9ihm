@@ -139,6 +139,32 @@ public class Application extends JFrame {
 
 		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu,this.user);
 		// ****** Fin création fenêtres ******
+		if (user.getProperties("diaporama").equals("Caché")) {
+			itemDiaporama.setVisible(false);
+		} else if (user.getProperties("diaporama").equals("affiché")) {
+			itemDiaporama.setVisible(true);
+		};
+		
+		if (user.getProperties("saisie").equals("Caché")) {
+			itemTexte.setVisible(false);
+		} else if (user.getProperties("saisie").equals("affiché")) {
+			itemTexte.setVisible(true);
+		};
+		
+		if (user.getProperties("boutons").equals("Caché")) {
+			itemBoutons.setVisible(false);
+		} else if (user.getProperties("boutons").equals("affiché")) {
+			itemBoutons.setVisible(true);
+		};
+		
+		if (user.getProperties("conversion").equals("Caché")) {
+			itemConversion.setVisible(false);
+		} else if (user.getProperties("conversion").equals("affiché")) {
+			itemConversion.setVisible(true);
+		};
+		
+			
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 300);
 		this.setLocationRelativeTo(null);

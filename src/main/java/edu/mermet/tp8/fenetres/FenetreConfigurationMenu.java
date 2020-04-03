@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -293,9 +294,12 @@ public class FenetreConfigurationMenu extends JDialog {
 
 		            if(groupeSaisie.getSelection() != null)
 		                user.setProperties("boutons", groupeSaisie.getSelection().getActionCommand());
-
+		            
 		            	user.enregistrer();
-
+		            	JFrame parent = new JFrame();
+		                JOptionPane optionPane = new JOptionPane("Changement effectué", JOptionPane.INFORMATION_MESSAGE);
+		                JDialog dialog = optionPane.createDialog(parent, "Manual Creation");
+		                dialog.setVisible(true);
 			}
 		});
 		annulerBouton.addActionListener(new ActionListener() {
