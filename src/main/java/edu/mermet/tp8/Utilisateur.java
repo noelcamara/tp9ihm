@@ -15,7 +15,7 @@ public class Utilisateur {
 	 */
 	public Utilisateur() {
 		this.nom = "login";
-		chemin = "src/ressource/.ihm/login.xml";
+		chemin = "src/ressources/.ihm/login.xml";
 		properties = new Properties();
 		try {
 			properties.loadFromXML(new FileInputStream(chemin));
@@ -31,7 +31,7 @@ public class Utilisateur {
 	public Utilisateur(String nom) {
 		this.nom = nom;
 		properties = new Properties();
-		chemin = "src/ressource/.ihm/" + nom + ".xml";
+		chemin = "src/ressources/.ihm/" + nom + ".xml";
 		try {
 			properties.loadFromXML(new FileInputStream(chemin));
 		} catch (IOException e) {

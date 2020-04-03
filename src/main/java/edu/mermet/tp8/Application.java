@@ -290,7 +290,7 @@ public class Application extends JFrame {
 		suggestion.setVisible(true);
 	}
 
-	private static String getRandomSuggestion() {
+	private String getRandomSuggestion() {
 		try {
 			List<String> listeSuggestion = new ArrayList<String>();
 			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
