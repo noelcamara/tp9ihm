@@ -32,6 +32,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import edu.mermet.tp8.fenetres.FenetreBoutons;
+import edu.mermet.tp8.fenetres.FenetreConfigurationMenu;
 import edu.mermet.tp8.fenetres.FenetreConversion;
 import edu.mermet.tp8.fenetres.FenetreDiaporama;
 import edu.mermet.tp8.fenetres.FenetreTexte;
@@ -48,6 +49,7 @@ public class Application extends JFrame {
 	private JInternalFrame diaporama;
 	private JInternalFrame boutons;
 	private JDialog comntfaire;
+	private JDialog configMenus;
 	private Action actionAfficherConversion;
 	private Action actionAfficherTexte;
 	private Action actionAfficherDiaporama;
@@ -64,6 +66,7 @@ public class Application extends JFrame {
 		// ------ menu Fichier ------
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic(KeyEvent.VK_F);
+		// Bouton quitter auquel on affecte l'action de fermer la page
 		JMenuItem quitter = new JMenuItem("Quitter");
 		quitter.addActionListener(new ActionListener() {
 			@Override
@@ -71,7 +74,9 @@ public class Application extends JFrame {
 				System.exit(0);
 			}
 		});
+		// Ajout du raccourci pour quitter la page
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+		//Ajout de "Quitter" dans le menu
 		menuFichier.add(quitter);
 		barre.add(menuFichier);
 		this.setJMenuBar(barre);
@@ -118,6 +123,8 @@ public class Application extends JFrame {
 		this.add(boutons);
 		// ------ jdialog -------
 		comntfaire = new FentreCmntFaire(this, actionCmntFaire);
+		
+		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu);
 		// ****** Fin création fenêtres ******
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 300);
@@ -152,7 +159,7 @@ public class Application extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("2");
+			configMenus.setVisible(true);
 
 		}
 
