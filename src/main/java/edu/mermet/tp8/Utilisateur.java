@@ -21,6 +21,7 @@ public class Utilisateur {
 			properties.loadFromXML(new FileInputStream(chemin));
 		} catch (IOException e) {
 			System.err.println("le fichier login.xml n'existe pas");
+			this.enregistrer();
 		}
 	}
 
@@ -37,6 +38,7 @@ public class Utilisateur {
 		} catch (IOException e) {
 			System.out.println("Fichier utilisateur de " + nom
 					+ " non existant ! Création objet utilisateur avec propriétés vides.");
+			this.enregistrer();
 		}
 
 	}
