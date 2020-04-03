@@ -137,7 +137,7 @@ public class Application extends JFrame {
 		// ------ jdialog -------
 		comntfaire = new FentreCmntFaire(this, actionCmntFaire);
 
-		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu);
+		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu,this.user);
 		// ****** Fin création fenêtres ******
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 300);
@@ -335,8 +335,7 @@ public class Application extends JFrame {
 					IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
 					user.setProperties("nePlusAfficher", IndexNePasAfficher);
 					user.enregistrer();
-				
-				suggestion.dispose();
+					suggestion.dispose();
 			}
 		});
 
@@ -361,8 +360,7 @@ public class Application extends JFrame {
             }
             Random rand = new Random();
             int nombreAleatoire = rand.nextInt(listeSuggestion.size());
-
-            
+   
             if (!user.getProperties("nePlusAfficher").equals("")) {
             	  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
                   {
@@ -386,8 +384,8 @@ public class Application extends JFrame {
 	
 	public static void main(String[] args) {
 		Utilisateur user=new Utilisateur(System.getProperty("user.name"));
+		System.out.println(user.getNom());
 		SwingUtilities.invokeLater(()-> {new Application(user);});
 	}
-
 
 }
