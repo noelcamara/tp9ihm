@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import edu.mermet.tp8.Utilisateur;
+
 /**
  * 
  * @author Billal Ihaddaden and Rida GHOUTI TERKI
@@ -53,6 +55,7 @@ public class FenetreConfigurationMenu extends JDialog {
 
 	private JButton validerBouton;
 	private JButton annulerBouton;
+	private Utilisateur user;
 
 	/**
 	 * Constructeur de la fentre modale des configuration des menus
@@ -60,8 +63,9 @@ public class FenetreConfigurationMenu extends JDialog {
 	 * @param me
 	 * @param action
 	 */
-	public FenetreConfigurationMenu(JFrame me, Action action) {
+	public FenetreConfigurationMenu(JFrame me, Action action,Utilisateur user) {
 		super(me, "Configuration des menus", true);
+		this.user=user;
 		setLocationRelativeTo(me);
 		initComponent();
 		pack();
@@ -101,6 +105,7 @@ public class FenetreConfigurationMenu extends JDialog {
 
 		// creation des radios bouton
 		radioAuto1 = new JRadioButton("Auto");
+		
 		radioAffiche1 = new JRadioButton("Affiché");
 		radioCache1 = new JRadioButton("Caché");
 		radioAuto2 = new JRadioButton("Auto");
@@ -112,6 +117,24 @@ public class FenetreConfigurationMenu extends JDialog {
 		radioAuto4 = new JRadioButton("Auto");
 		radioAffiche4 = new JRadioButton("Affiché");
 		radioCache4 = new JRadioButton("Caché");
+		
+		radioAuto1.setActionCommand("Auto");
+		radioAffiche1.setActionCommand("affiché");
+		radioCache1.setActionCommand("Caché");
+		
+		radioAuto2.setActionCommand("Auto");
+		radioAffiche2.setActionCommand("affiché");
+		radioCache2.setActionCommand("Caché");
+		
+		radioAuto3.setActionCommand("Auto");
+		radioAffiche3.setActionCommand("affiché");
+		radioCache3.setActionCommand("Caché");
+		
+		radioAuto4.setActionCommand("Auto");
+		radioAffiche4.setActionCommand("affiché");
+		radioCache4.setActionCommand("Caché");
+
+		
 
 		// creation des listner
 		radioAuto1.addActionListener(new ActionListener() {
@@ -259,7 +282,19 @@ public class FenetreConfigurationMenu extends JDialog {
 		validerBouton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				 if(groupeConversion.getSelection() != null)
+		                user.setProperties("conversion", groupeConversion.getSelection().getActionCommand());
+
+		            if(groupeDiaporama.getSelection() != null)
+		                user.setProperties("saisie", groupeDiaporama.getSelection().getActionCommand());
+
+		            if(groupeBoutons.getSelection() != null)
+		                user.setProperties("diaporama", groupeBoutons.getSelection().getActionCommand());
+
+		            if(groupeSaisie.getSelection() != null)
+		                user.setProperties("boutons", groupeSaisie.getSelection().getActionCommand());
+
+		            	user.enregistrer();
 
 			}
 		});

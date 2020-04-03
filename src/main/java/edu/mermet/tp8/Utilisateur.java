@@ -64,11 +64,9 @@ public class Utilisateur {
 	 */
 	public String getProperties(String cle) {
 		String valeur = properties.getProperty(cle);
-
 		if (valeur==null) {
 			return "";
 		}
-
 		return valeur;
 	}
 
@@ -80,7 +78,7 @@ public class Utilisateur {
 	public void setProperties(String cle, String valeur) {
 		properties.setProperty(cle, valeur);
 	}
-	
+
 	/**
 	 * méthode qui récupere le nom de l'utilsateur
 	 * @return

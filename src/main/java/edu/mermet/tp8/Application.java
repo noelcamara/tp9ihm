@@ -138,7 +138,7 @@ public class Application extends JFrame {
 		// ------ jdialog -------
 		comntfaire = new FentreCmntFaire(this, actionCmntFaire);
 
-		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu);
+		configMenus = new FenetreConfigurationMenu(this, actionConfigMenu,this.user);
 		// ****** Fin création fenêtres ******
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 300);
@@ -375,11 +375,11 @@ public class Application extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				IndexNePasAfficher = user.getProperties("nePlusAfficher") + " " + IndexNePasAfficher;
-				user.setProperties("nePlusAfficher", IndexNePasAfficher);
-				user.enregistrer();
-
-				suggestion.dispose();
+					System.out.println(IndexNePasAfficher);
+					IndexNePasAfficher=user.getProperties("nePlusAfficher")+" "+IndexNePasAfficher;
+					user.setProperties("nePlusAfficher", IndexNePasAfficher);
+					user.enregistrer();
+					suggestion.dispose();
 			}
 		});
 
@@ -394,22 +394,26 @@ public class Application extends JFrame {
 	}
 
 	private String getRandomSuggestion() {
-		try {
-			List<String> listeSuggestion = new ArrayList<String>();
-			BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
-			String ligne;
-			while ((ligne = reader.readLine()) != null) {
-				listeSuggestion.add(ligne);
-			}
-			Random rand = new Random();
-			int nombreAleatoire = rand.nextInt(listeSuggestion.size());
-			if (!user.getProperties("nePlusAfficher").equals("")) {
-				while (user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire))) {
-					nombreAleatoire = rand.nextInt(listeSuggestion.size());
-				}
 
-			} else {
-				user.setProperties("nePlusAfficher", "");
+        try {
+            List<String> listeSuggestion = new ArrayList<String>();
+            BufferedReader reader = new BufferedReader(new FileReader(new File("src/ressources/Astuces")));
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                listeSuggestion.add(ligne);
+            }
+            Random rand = new Random();
+            int nombreAleatoire = rand.nextInt(listeSuggestion.size());
+   
+            if (!user.getProperties("nePlusAfficher").equals("")) {
+            	  while(user.getProperties("nePlusAfficher").contains(String.valueOf(nombreAleatoire)))
+                  {
+                      nombreAleatoire = rand.nextInt(listeSuggestion.size());
+                  }
+            	 				
+			}else {
+				 user.setProperties("nePlusAfficher", "");
+
 			}
 			this.IndexNePasAfficher = String.valueOf(nombreAleatoire);
 
@@ -422,11 +426,11 @@ public class Application extends JFrame {
 	}
 
 	public static void main(String[] args) {
+
 		Utilisateur user = new Utilisateur(System.getProperty("user.name"));
 		SwingUtilities.invokeLater(() -> {
 			new Application(user);
 		});
 
 	}
-
 }
