@@ -110,9 +110,6 @@ public class FenetreConfigurationMenu extends JDialog {
     	saisieLabel = new JLabel("Saisie de texte");
     	diaporamaLabel = new JLabel("Diaporama");
     	boutonsLabel = new JLabel("Boutons");
-    	autoLabel = new JLabel("Automatique");
-    	afficheLabel = new JLabel("Affiché");
-    	cacheLabel = new JLabel("Caché");
     	
     	groupeConversion = new ButtonGroup();
     	groupeSaisie = new ButtonGroup();
